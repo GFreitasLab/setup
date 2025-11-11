@@ -1,0 +1,6 @@
+* {
+    foreground: {{colors.on_surface.default.hex}};
+    background: {{colors.surface_container.default.hex}};
+    selected: {{colors.primary.default.hex}};
+    selected-text: {{colors.primary_container.default.hex}};
+}

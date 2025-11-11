@@ -1,0 +1,6 @@
+@define-color on_surface {{colors.on_surface.default.hex}};
+@define-color surface_container {{colors.surface_container.default.hex}};
+@define-color primary {{colors.primary.default.hex}};
+@define-color primary_fixed {{colors.primary_fixed.default.hex}};
+@define-color warning {{colors.secondary.default.hex}};
+@define-color error {{colors.error.default.hex}};

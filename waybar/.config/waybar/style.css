@@ -1,0 +1,51 @@
+@import "colors.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font Propo";
+  font-size: 14px;
+}
+
+window#waybar {
+  background-color: @surface_container;
+  color: @on_surface;
+}
+
+#workspaces,
+#clock,
+#tray,
+#language,
+#backlight,
+#pulseaudio,
+#battery {
+  color: @on_surface;
+  padding: 0 6px;
+}
+
+#workspaces {
+  margin-left: 4px;
+}
+
+#battery {
+  margin-right: 4px;
+}
+
+#workspaces button {
+  color: @on_surface;
+  padding: 0 2px;
+}
+
+#workspaces button.active {
+  color: @primary;
+}
+
+#battery.charging {
+  color: @primary_fixed;
+}
+
+#battery.warning {
+  color: @secondary;
+}
+
+#battery.critical {
+  color: @error;
+}

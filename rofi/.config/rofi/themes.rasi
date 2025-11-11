@@ -1,0 +1,60 @@
+@theme "colors.rasi"
+
+* {
+    font: "JetBrainsMono Nerd Font Propo 12";
+
+    background-color: transparent;
+    text-color: @foreground;
+
+    margin: 0px;
+    padding: 0px;
+    spacing: 0px;
+}
+
+window {
+    location: center;
+    anchor: center;
+    width: 240;
+    border-radius: 8px;
+    
+    background-color: @background;
+}
+
+mainbox {
+    padding: 16px;
+}
+
+inputbar {
+    padding: 0 0 16 0px;
+    children: [ prompt, entry ];
+}
+
+entry {
+    padding: 0 16px;
+}
+
+listview {
+    lines: 10;
+    columns: 1;
+
+    fixed-height: false;
+}
+element {
+    spacing: 0 0 0 8px;
+    padding: 4 8px;
+    border-radius: 8px;
+}
+
+element selected normal, element selected active {
+    background-color: @selected;
+    text-color: @selected-text;
+}
+
+element-icon {
+    size: 1em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    text-color: inherit;
+}
