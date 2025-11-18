@@ -13,7 +13,8 @@
         "hyprland/language",
         "backlight",
         "pulseaudio",
-        "battery"
+        "battery",
+        "custom/power"
     ],
     "hyprland/workspaces": {
         "format": "{name}",
@@ -29,8 +30,8 @@
     },
     "hyprland/language": {
         "format": "{}",
-        "format-en": "EN",
-        "format-pt": "BR"
+        "format-en": "en",
+        "format-pt": "br"
     },
     "backlight": {
         "format": "{icon} {percent}%",
@@ -67,7 +68,7 @@
         "format-full": "{icon}",
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
-        "format-alt": "{icon} {time}",
+        "on-click": "~/scripts/rofi_powerprofiles.sh",
         "format-icons": [
             "󰁺",
             "󰁻",
@@ -80,6 +81,11 @@
             "󰂂",
             "󰁹"
         ],
+        "tooltip": false
+    },
+    "custom/power": {
+        "format": "⏻",
+        "on-click": "~/scripts/rofi_powermenu.sh",
         "tooltip": false
     }
 }

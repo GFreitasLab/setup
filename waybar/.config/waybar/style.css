@@ -16,17 +16,10 @@ window#waybar {
 #language,
 #backlight,
 #pulseaudio,
-#battery {
+#battery,
+#custom-power {
   color: @foreground;
   padding: 0 6px;
-}
-
-#workspaces {
-  margin-left: 4px;
-}
-
-#battery {
-  margin-right: 4px;
 }
 
 #workspaces button {
