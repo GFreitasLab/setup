@@ -2,6 +2,9 @@
     "layer": "top",
     "position": "top",
     "height": 24,
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
     "modules-left": [
         "hyprland/workspaces"
     ],
@@ -10,7 +13,6 @@
     ],
     "modules-right": [
         "tray",
-        "hyprland/language",
         "backlight",
         "pulseaudio",
         "battery",
@@ -27,11 +29,6 @@
     "tray": {
         "icon-size": 16,
         "spacing": 10
-    },
-    "hyprland/language": {
-        "format": "{}",
-        "format-en": "en",
-        "format-pt": "br"
     },
     "backlight": {
         "format": "{icon} {percent}%",

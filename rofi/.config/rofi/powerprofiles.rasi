@@ -9,6 +9,7 @@
 window {
     location: northeast;
     width: 160;
+    x-offset: -30;
     background-color: @background;
 }
 
