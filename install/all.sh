@@ -67,11 +67,11 @@ dev_pkgs=(
 )
 
 desktop_pkgs=(
-  hyprland hyprlock waybar rofi-wayland wl-clipboard grimblast swww ly thunar imv mpv gammastep flatpak
+  hyprland hyprlock waybar rofi-wayland wl-clipboard grimblast swww ly thunar imv mpv gammastep flatpak zen-browser-bin
 )
 
 apps_aur_pkgs=(
-  brave-bin obsidian waypaper-git yay
+  obsidian yay
 )
 
 info "Iniciando configuração"
