@@ -1,6 +1,0 @@
-@define-color foreground {{foreground}};
-@define-color background rgb({{background | rgb}});
-@define-color main {{color4}};
-@define-color charging {{color10}};
-@define-color warning {{color11}};
-@define-color critical {{color9}};

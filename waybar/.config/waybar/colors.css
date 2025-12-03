@@ -1,6 +1,6 @@
-@define-color on_surface #e1e2e8;
-@define-color surface_container #1d2024;
-@define-color primary #a0cafd;
-@define-color primary_fixed #d1e4ff;
-@define-color warning #bbc7db;
-@define-color error #ffb4ab;
+@define-color foreground #cdcdcd;
+@define-color background #141415;
+@define-color main #6e94b2;
+@define-color charging #99b782;
+@define-color warning #f5cb96;
+@define-color critical #e08398;

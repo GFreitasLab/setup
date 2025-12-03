@@ -1,6 +1,0 @@
-* {
-    foreground: {{foreground}};
-    background: {{background}};
-    selected: {{color4}};
-    selected-text: {{color0}};
-}
