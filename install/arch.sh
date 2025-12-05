@@ -5,17 +5,24 @@ green="\e[32m"
 yellow="\e[33m"
 red="\e[31m"
 reset="\e[0m"
+
+if [[ $EUID -eq 0 ]]; then
+  echo -e "${red}Erro: Este script deve ser executado como USUÁRIO COMUM (sem sudo).${reset}"
+  echo -e "${yellow}O script pedirá sua senha EXPLICITAMENTE em cada etapa com sudo.${reset}"
+  exit 1
+fi
+
 info() { echo -e "${green}==>${reset} $1"; }
 
 install_pkgs() {
   info "Instalando: $1"
   shift
-  sudo pacman -S --needed --noconfirm "$@"
+  sudo -k pacman -S --needed --noconfirm "$@"
 }
 
 add_chaotic_repo() {
   if [[ $EUID -ne 0 ]]; then
-    echo -e "${red}Este trecho precisa ser executado como root. Use: sudo $0${reset}"
+    echo -e "${red}Este trecho precisa ser executado como root.${reset}"
     exit 1
   fi
 
@@ -71,65 +78,86 @@ desktop_pkgs=(
 )
 
 apps_aur_pkgs=(
-  obsidian yay
+  obsidian
 )
 
 info "Iniciando configuração"
 
 info "Instalando chaotic-aur"
-sudo bash -c "$(declare -f add_chaotic_repo); add_chaotic_repo"
+sudo -k bash -c "$(declare -f add_chaotic_repo); add_chaotic_repo"
 
 info "Atualizando repositórios"
-sudo pacman -Syy
+sudo -k pacman -Syy
 
 install_pkgs "Base do sistema" "${base_pkgs[@]}"
 install_pkgs "Rede e Bluetooth" "${network_pkgs[@]}"
 
 info "Configurando serviços de rede"
-sudo systemctl disable --now iwd.service || true
-sudo systemctl enable --now NetworkManager.service
-sudo systemctl enable --now sshd.service
+sudo -k systemctl enable --now NetworkManager.service
+
+if systemctl list-unit-files | grep -q iwd.service; then
+  sudo -k systemctl disable --now iwd.service || true
+fi
+sudo -k systemctl enable --now sshd.service
 
 install_pkgs "Áudio" "${audio_pkgs[@]}"
 install_pkgs "Utilitários" "${utils_pkgs[@]}"
 install_pkgs "Desenvolvimento" "${dev_pkgs[@]}"
 
 info "Adicionando o usuário ao grupo docker"
-sudo usermod -aG docker "$USER"
+sudo -k usermod -aG docker "$USER"
 
 install_pkgs "Ambiente gráfico" "${desktop_pkgs[@]}"
 
 info "Ativando o login manager ly"
-sudo systemctl enable ly.service
+sudo -k systemctl enable ly.service
 
-info "Instalando pacotes do AUR com yay"
+info "Verificando instalação do yay"
 if ! command -v yay &>/dev/null; then
   info "yay não encontrado, instalando..."
+  rm -rf /tmp/yay
   git clone https://aur.archlinux.org/yay.git /tmp/yay
   pushd /tmp/yay >/dev/null
   makepkg -si --noconfirm
   popd >/dev/null
 fi
+
+info "Instalando pacotes extras do AUR"
 yay -S --needed --noconfirm "${apps_aur_pkgs[@]}"
 
-info "Atualizando o sistema"
-sudo pacman -Syu --noconfirm
+info "Atualizando todo o sistema"
+sudo -k pacman -Syu --noconfirm
 
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
-  info "Configurando zsh"
-  chsh -s /usr/bin/zsh
+  info "Configurando zsh como shell padrão"
+  sudo -k usermod --shell /usr/bin/zsh "$USER"
 fi
 
-info "Instalando Oh-My-Zsh (sem abrir shell)"
-RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  info "Instalando Oh-My-Zsh"
+  RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  info "Oh-My-Zsh já instalado, pulando..."
+fi
 
 info "Clonando plugins do ZSH"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
 
-info "Instalando Tmux Plugin Manager"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
 
-info "Instalação concluída!"
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+fi
+
+if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
+fi
+
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  info "Instalando Tmux Plugin Manager"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+info "Instalação concluída com sucesso! Reinicie o computador."
