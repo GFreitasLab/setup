@@ -4,6 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      (fetchTarball "https://github.com/gmodena/nix-flatpak/archive/master.tar.gz")
     ];
 
   networking.hostName = "nix-machine";
@@ -73,6 +74,7 @@
     playerctl
 
     # -- Desenvolvimento
+    kitty
     neovim
     tmux
     nodejs
@@ -92,18 +94,25 @@
     thunar
     mpv
     imv
-    
-    # -- Apps
-    kitty
-    obsidian
   ];
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  services.flatpak.enable = true;
-
   services.openssh.enable = true;
+  
+  services.flatpak.enable = true;
+  services.flatpak.remotes = [
+    {
+      name = "flathub";
+      url = "https://flathub.org/repo/flathub.flatpakrepo";
+    }
+  ];
+  services.flatpak.packages = [
+    "flathub:app.zen_browser.zen"
+    "flathub:org.keepassxc.KeePassXC"
+    "flathub:md.obsidian.Obsidian"
+  ];
 
   system.stateVersion = "24.05"; 
 }
