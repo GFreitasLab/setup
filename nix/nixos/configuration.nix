@@ -133,9 +133,6 @@
     mpv
     imv
     waypaper
-    orchis-theme
-    bibata-cursors
-    papirus-icon-theme
     hyprlock
     nwg-look
     gammastep

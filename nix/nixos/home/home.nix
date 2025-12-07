@@ -8,6 +8,7 @@
   imports = [
     ./fastfetch.nix
     ./git.nix
+    ./gtk.nix
     ./tmux.nix
     ./zsh.nix
   ];
