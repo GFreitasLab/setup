@@ -33,7 +33,6 @@
     gammastep
     networkmanagerapplet
     brave
-    librewolf
     obsidian
   ];
 }
