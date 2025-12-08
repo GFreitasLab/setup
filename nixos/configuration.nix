@@ -37,6 +37,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console.keyMap = "br-abnt2";
 
+  programs.zsh.enable = true;
   
   users.users.gustavo = {
     isNormalUser = true;
@@ -51,32 +52,23 @@
     users.gustavo = import ./home/home.nix;
   };
 
-  programs.zsh.enable =  true;
-  programs.tmux.enable = true;
-  programs.hyprland.enable = true;
-
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     font-awesome
   ];
 
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-    wireplumber.enable = true;
-  };
+  environment.pathsToLink = [
+    "/share/applications"
+    "/share/xdg-desktop-portal"
+  ];
 
-  virtualisation.docker.enable = true;
-
-  xdg.portal = with pkgs; {
+  xdg.portal = {
     enable = true;
-    extraPortals = [ xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+    ];
     config.common.default = "*";
   };
 
@@ -94,7 +86,6 @@
     fd
     stow
     btop
-    fastfetch
     brightnessctl
     polkit_gnome
     udisks2
@@ -106,11 +97,11 @@
     webp-pixbuf-loader
     unrar
     fzf
+    tree
     # -- Áudio e Controle
     pavucontrol
     playerctl
     # -- Desenvolvimento
-    kitty
     neovim
     nodejs
     python3
@@ -118,33 +109,25 @@
     gnumake
     nodejs
     luarocks
-    docker-compose
     lua
     cargo
-    # -- Desktop / Hyprland
-    waybar
-    rofi
-    dunst
-    swww
-    wl-clipboard
-    grim
-    slurp
-    xfce.thunar
-    mpv
-    imv
-    waypaper
-    hyprlock
-    nwg-look
-    gammastep
-    networkmanagerapplet
-    ## -- Apps --
-    brave
-    obsidian
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   hardware.bluetooth.enable = true;
+
+  services.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+      wireplumber.enable = true;
+    };
+
   services = {
     blueman.enable = true;
     udisks2.enable = true;
@@ -155,31 +138,5 @@
     tumbler.enable = true;
   };
 
-  systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
-
-  services.flatpak = {
-    enable = true;
-    remotes = lib.mkOptionDefault [{
-      name = "flathub";
-      location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-    }];
-
-    packages = [
-      "org.keepassxc.KeePassXC"
-      "com.stremio.Stremio"
-    ];
-
-    update.auto = {
-      enable = true;
-      onCalendar = "weekly";
-    };
-  };
-  
   system.stateVersion = "25.11"; 
 }

@@ -6,10 +6,34 @@
   home.stateVersion = "25.11";
 
   imports = [
-    ./fastfetch.nix
-    ./git.nix
-    ./gtk.nix
-    ./tmux.nix
-    ./zsh.nix
+    ./shells/git.nix
+    ./shells/zsh.nix
+    ./sessions/hyprland/hyprland.nix
+    ./programs/fastfetch.nix
+    ./programs/hyprlock.nix
+    ./programs/tmux.nix
+    ./programs/kitty.nix
+    ./theming/gtk.nix
+  ];
+
+  home.packages = with pkgs; [
+    waybar
+    rofi
+    dunst
+    swww
+    wl-clipboard
+    grim
+    slurp
+    xfce.thunar
+    mpv
+    imv
+    waypaper
+    hyprlock
+    nwg-look
+    gammastep
+    networkmanagerapplet
+    brave
+    librewolf
+    obsidian
   ];
 }
