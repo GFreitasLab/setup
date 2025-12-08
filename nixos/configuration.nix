@@ -38,6 +38,7 @@
   console.keyMap = "br-abnt2";
 
   programs.zsh.enable = true;
+  programs.hyprland.enable = true;
   
   users.users.gustavo = {
     isNormalUser = true;
