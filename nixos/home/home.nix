@@ -17,6 +17,7 @@
   ];
 
   home.packages = with pkgs; [
+    # Hyprland
     waybar
     rofi
     dunst
@@ -32,6 +33,7 @@
     nwg-look
     gammastep
     networkmanagerapplet
+    # Apps
     brave
     obsidian
   ];
