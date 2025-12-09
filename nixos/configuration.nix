@@ -108,7 +108,6 @@
     python3
     gcc
     gnumake
-    nodejs
     luarocks
     lua
     cargo

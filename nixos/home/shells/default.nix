@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./git.nix
-    ./zsh.nix
+    ./git
+    ./zsh
   ];
 }

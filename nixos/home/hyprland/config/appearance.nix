@@ -2,8 +2,8 @@
   wayland.windowManager.hyprland.settings = {
     general = {
       border_size = 1;
-      gaps_in = 0;
-      gaps_out = 0;
+      gaps_in = 5;
+      gaps_out = 10;
   
       "col.active_border" = "rgba(fabd2fee)";
       "col.inactive_border" = "rgba(282828ee)";
@@ -24,7 +24,12 @@
       };
   
       blur = {
-        enabled = false;
+        enabled = true;
+	size = 5;
+        passes = 3;
+        noise = 0.01;
+        vibrancy = 0.1696;
+        new_optimizations = true;
       };
     };
   

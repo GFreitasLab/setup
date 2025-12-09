@@ -2,10 +2,12 @@
 
 {
   imports = [
-    ./fastfetch.nix
-    ./hyprlock.nix
-    ./kitty.nix
-    ./tmux.nix
-    ./waybar.nix
+    ./fastfetch
+    ./hyprlock
+    ./kitty
+    ./mako
+    ./tmux
+    ./waybar
+    ./wlogout
   ];
 }

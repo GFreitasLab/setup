@@ -15,21 +15,23 @@
   home.packages = with pkgs; [
     # Hyprland
     rofi
-    dunst
+    mako
     swww
     wl-clipboard
     grim
-    slurp
     xfce.thunar
     mpv
     imv
     waypaper
-    hyprlock
     nwg-look
     gammastep
     networkmanagerapplet
+    swayosd
     # Apps
     brave
     obsidian
   ];
+
+  services.swayosd.enable = true;
+
 }
