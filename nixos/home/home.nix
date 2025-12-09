@@ -6,19 +6,14 @@
   home.stateVersion = "25.11";
 
   imports = [
-    ./shells/git.nix
-    ./shells/zsh.nix
-    ./sessions/hyprland/hyprland.nix
-    ./programs/fastfetch.nix
-    ./programs/hyprlock.nix
-    ./programs/tmux.nix
-    ./programs/kitty.nix
-    ./theming/gtk.nix
+    ./shells
+    ./hyprland
+    ./programs
+    ./theming
   ];
 
   home.packages = with pkgs; [
     # Hyprland
-    waybar
     rofi
     dunst
     swww
