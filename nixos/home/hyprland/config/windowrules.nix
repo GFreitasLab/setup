@@ -28,6 +28,7 @@
     ];
     layerrule = [
       "animation slide top, rofi"
+      "blur, logout_dialog"
     ];
   };
 }
