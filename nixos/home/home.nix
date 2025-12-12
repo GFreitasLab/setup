@@ -14,8 +14,6 @@
 
   home.packages = with pkgs; [
     # Hyprland
-    rofi
-    mako
     swww
     wl-clipboard
     grim

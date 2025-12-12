@@ -2,7 +2,7 @@
   wayland.windowManager.hyprland.settings = {
     "$terminal" = "kitty";
     "$fileManager" = "thunar";
-    "$menu" = "rofi -show drun -theme ~/.config/rofi/launcher.rasi";
+    "$menu" = "rofi -show drun";
     "$screenshot_file" = "~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png";
 
     "$mainMod" = "SUPER";
