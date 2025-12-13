@@ -76,7 +76,6 @@
 
   environment.systemPackages = with pkgs; [
     # -- Base e Utilitários
-    efibootmgr
     wget
     curl
     git
